@@ -76,7 +76,12 @@ Item {
                     spacing: 4
 
                     model: ScriptModel {
-                        values: Network.wifiNetworks
+                        // Spread operator required - ScriptModel can't use QML list<T> directly
+                        values: [...Network.wifiNetworks].sort((a, b) => {
+                            // Active networks first, then by signal strength
+                            if (a.active !== b.active) return b.active ? 1 : -1;
+                            return b.strength - a.strength;
+                        })
                     }
                     delegate: WWifiNetworkItem {
                         required property WifiAccessPoint modelData
