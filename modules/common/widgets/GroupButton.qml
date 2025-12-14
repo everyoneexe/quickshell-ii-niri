@@ -79,51 +79,52 @@ Button {
         animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)
     }
 
+    // TapHandler for right-click - works better with QtQuick.Controls Button
+    TapHandler {
+        acceptedButtons: Qt.RightButton
+        onTapped: {
+            if (root.altAction) root.altAction();
+        }
+    }
+
+    // TapHandler for middle-click
+    TapHandler {
+        acceptedButtons: Qt.MiddleButton
+        onTapped: {
+            if (root.middleClickAction) root.middleClickAction();
+        }
+    }
+
+    // TapHandler for long-press (touch alternative to right-click)
+    TapHandler {
+        acceptedButtons: Qt.LeftButton
+        longPressThreshold: 0.5
+        onLongPressed: {
+            if (root.altAction) root.altAction();
+        }
+    }
+
     property alias mouseArea: buttonMouseArea
     MouseArea {
         id: buttonMouseArea
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
         preventStealing: true
-        acceptedButtons: Qt.LeftButton | Qt.RightButton | Qt.MiddleButton
+        acceptedButtons: Qt.LeftButton
         onPressed: (event) => { 
-            if(event.button === Qt.RightButton) {
-                event.accepted = true
-                if (root.altAction) root.altAction();
-                return;
-            }
-            if(event.button === Qt.MiddleButton) {
-                event.accepted = true
-                if (root.middleClickAction) root.middleClickAction();
-                return;
-            }
             root.down = true
             if (root.downAction) root.downAction();
         }
         onReleased: (event) => {
             root.down = false
-            if (event.button != Qt.LeftButton) {
-                event.accepted = true
-                return;
-            }
             if (root.releaseAction) root.releaseAction();
         }
         onClicked: (event) => {
-            if (event.button != Qt.LeftButton) {
-                event.accepted = true
-                return;
-            }
             root.clicked()
         }
         onCanceled: (event) => {
             root.down = false
         }
-
-        onPressAndHold: () => {
-            if (altAction) altAction(); 
-            root.down = false; 
-            root.clicked = false;
-        };
     }
 
 

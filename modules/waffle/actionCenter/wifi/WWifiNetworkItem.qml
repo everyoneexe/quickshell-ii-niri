@@ -75,10 +75,62 @@ ExpandableChoiceButton {
                 }
             }
 
+            // Password input (shown when network requires password)
+            ColumnLayout {
+                id: passwordPrompt
+                Layout.fillWidth: true
+                Layout.topMargin: 4
+                visible: root.wifiNetwork?.askingPassword ?? false
+                spacing: 8
+
+                WTextField {
+                    id: passwordField
+                    Layout.fillWidth: true
+                    placeholderText: Translation.tr("Password")
+                    echoMode: TextInput.Password
+                    inputMethodHints: Qt.ImhSensitiveData
+
+                    onAccepted: {
+                        Network.changePassword(root.wifiNetwork, passwordField.text);
+                        passwordField.text = "";
+                    }
+                }
+
+                RowLayout {
+                    Layout.fillWidth: true
+                    spacing: 8
+
+                    Item { Layout.fillWidth: true }
+
+                    WButton {
+                        text: Translation.tr("Cancel")
+                        implicitHeight: 30
+                        colBackground: Looks.colors.bg2
+                        colBackgroundHover: Looks.colors.bg2Hover
+                        colBackgroundActive: Looks.colors.bg2Active
+                        onClicked: {
+                            root.wifiNetwork.askingPassword = false;
+                            passwordField.text = "";
+                        }
+                    }
+
+                    WButton {
+                        text: Translation.tr("Connect")
+                        implicitHeight: 30
+                        checked: true
+                        onClicked: {
+                            Network.changePassword(root.wifiNetwork, passwordField.text);
+                            passwordField.text = "";
+                        }
+                    }
+                }
+            }
+
+            // Connect/Disconnect button (hidden when asking for password)
             WButton {
                 Layout.alignment: Qt.AlignRight
                 horizontalAlignment: Text.AlignHCenter
-                visible: root.expanded
+                visible: root.expanded && !(root.wifiNetwork?.askingPassword ?? false)
                 checked: !(root.wifiNetwork?.active ?? false)
                 colBackground: Looks.colors.bg2
                 colBackgroundHover: Looks.colors.bg2Hover
