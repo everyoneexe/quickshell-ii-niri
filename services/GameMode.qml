@@ -36,7 +36,7 @@ Singleton {
     // Config-driven behavior
     readonly property bool disableAnimations: Config.options?.gameMode?.disableAnimations ?? true
     readonly property bool disableEffects: Config.options?.gameMode?.disableEffects ?? true
-    readonly property int checkInterval: Config.options?.gameMode?.checkInterval ?? 3000
+    readonly property int checkInterval: Config.options?.gameMode?.checkInterval ?? 2000
 
     // Fullscreen detection threshold (allow small margin for bar/gaps)
     readonly property int _marginThreshold: 60
