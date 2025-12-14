@@ -79,7 +79,7 @@ Button {
         animation: Appearance.animation.elementMoveFast.numberAnimation.createObject(this)
     }
 
-    // TapHandler for right-click - works better with QtQuick.Controls Button
+    // TapHandler for right-click (altAction) - works better with Button control
     TapHandler {
         acceptedButtons: Qt.RightButton
         onTapped: {
@@ -95,7 +95,7 @@ Button {
         }
     }
 
-    // TapHandler for long-press (touch alternative to right-click)
+    // TapHandler for long-press (also triggers altAction)
     TapHandler {
         acceptedButtons: Qt.LeftButton
         longPressThreshold: 0.5
@@ -104,12 +104,12 @@ Button {
         }
     }
 
+    // MouseArea only for cursor shape and left-click handling
     property alias mouseArea: buttonMouseArea
     MouseArea {
         id: buttonMouseArea
         anchors.fill: parent
         cursorShape: Qt.PointingHandCursor
-        preventStealing: true
         acceptedButtons: Qt.LeftButton
         onPressed: (event) => { 
             root.down = true
