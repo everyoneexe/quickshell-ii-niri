@@ -204,6 +204,19 @@ check_quickshell_loads() {
     doctor_pass "Quickshell loads OK"
 }
 
+start_shell_if_needed() {
+    # Check if shell is running
+    if pgrep -f "qs.*-c.*ii" &>/dev/null; then
+        return 0
+    fi
+    
+    echo -e "${STY_FAINT}Starting shell...${STY_RST}"
+    nohup qs -c ii >/dev/null 2>&1 &
+    disown
+    sleep 1
+    doctor_fix "Started shell"
+}
+
 ###############################################################################
 # Main
 ###############################################################################
@@ -227,6 +240,7 @@ run_doctor_with_fixes() {
     check_niri_running
     check_python_packages
     check_quickshell_loads
+    start_shell_if_needed
     
     echo ""
     echo -e "${STY_BOLD}Summary:${STY_RST} ${STY_GREEN}$doctor_passed passed${STY_RST}, ${STY_YELLOW}$doctor_fixed fixed${STY_RST}, ${STY_RED}$doctor_failed failed${STY_RST}"

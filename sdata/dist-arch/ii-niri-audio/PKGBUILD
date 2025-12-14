@@ -15,5 +15,7 @@ depends=(
   pavucontrol
   # Audio visualizer
   cava
+  # Audio effects
+  easyeffects
 )
 

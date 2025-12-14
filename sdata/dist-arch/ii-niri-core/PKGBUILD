@@ -41,6 +41,9 @@ depends=(
   # Terminal - foot is default, change in niri config if you prefer another
   foot
   
+  # Shell - fish is required for scripts
+  fish
+  
   # TUI for setup script
   gum
   # X11 compatibility
