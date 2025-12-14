@@ -268,9 +268,9 @@ Singleton {
             }
 
             property JsonObject apps: JsonObject {
-                property string bluetooth: "kcmshell6 kcm_bluetooth"
-                property string network: "kitty -1 fish -c nmtui"
-                property string networkEthernet: "kcmshell6 kcm_networkmanagement"
+                property string bluetooth: "blueman-manager"
+                property string network: "nm-connection-editor"
+                property string networkEthernet: "nm-connection-editor"
                 property string taskManager: "missioncenter"
                 property string terminal: "ghostty" // This is only for shell actions
                 property string volumeMixer: `~/.config/quickshell/ii/scripts/launch_first_available.sh "pavucontrol-qt" "pavucontrol"`
