@@ -33,7 +33,13 @@ depends=(
   
   # Network
   networkmanager
+  nm-connection-editor  # GUI for network settings
   gnome-keyring
+  
+  # Bluetooth
+  bluez
+  bluez-utils
+  blueman  # GUI for bluetooth settings
   
   # File manager
   dolphin
