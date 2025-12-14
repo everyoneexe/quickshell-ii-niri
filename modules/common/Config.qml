@@ -261,9 +261,9 @@ Singleton {
                 // Values in %
                 property JsonObject protection: JsonObject {
                     // Prevent sudden bangs
-                    property bool enable: false
+                    property bool enable: true
                     property real maxAllowedIncrease: 10
-                    property real maxAllowed: 99
+                    property real maxAllowed: 100
                 }
             }
 
